@@ -51,7 +51,7 @@ mutable struct CompletionMap{S, T} <: Map{AbsSimpleNumField, S, HeckeMap, Comple
   prim_img::T
   inv_img::Tuple{AbsSimpleNumFieldElem, AbsSimpleNumFieldElem}
   precision::Int
-  lift_data::Tuple{Int, ZZMatrix, AbstractAlgebra.Solve.SolveCtx{QQFieldElem, QQMatrix, QQMatrix, QQMatrix}}
+  lift_data::Tuple{Int, ZZMatrix, AbstractAlgebra.Solve.SolveCtx{QQFieldElem, AbstractAlgebra.Solve.RREFTrait, QQMatrix, QQMatrix, QQMatrix}}
 
   function CompletionMap(K::AbsSimpleNumField, L::LocalField{QadicFieldElem, EisensteinLocalField},
                           img::LocalFieldElem{QadicFieldElem, EisensteinLocalField},
@@ -93,7 +93,7 @@ end
 #
 ################################################################################
 
-mutable struct LocalFieldValuationRing{S, T} <: Generic.Ring
+@attributes mutable struct LocalFieldValuationRing{S, T} <: Generic.Ring
   Q::S #The corresponding local field
   basis::Vector{T} #The OK-basis of the ring, where OK is
                    #the maximal order of the base field of Q

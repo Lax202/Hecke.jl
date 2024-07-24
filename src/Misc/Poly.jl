@@ -317,12 +317,12 @@ end
 ################################################################################
 
 @doc raw"""
-    rres(f::ZZPolyRingElem, g::ZZPolyRingElem) -> ZZRingElem
+    reduced_resultant(f::ZZPolyRingElem, g::ZZPolyRingElem) -> ZZRingElem
 
 The reduced resultant of $f$ and $g$,
 that is a generator for the ideal $(f, g) \cap Z$.
 """
-function rres(f::ZZPolyRingElem, g::ZZPolyRingElem)
+function reduced_resultant(f::ZZPolyRingElem, g::ZZPolyRingElem)
   return rres_bez(f,g)
 end
 
@@ -720,7 +720,7 @@ function roots(R::AcbField, f::Union{ZZPolyRingElem, QQPolyRingElem}, abs_tol::I
   return map(R, reduce(vcat, [_roots(g, abs_tol, initial_prec...) for g = keys(lf.fac) if degree(g) > 0]))
 end
 
-function roots(x::RealPoly)
+function roots(x::RealPolyRingElem)
   rt = roots(map_coefficients(ComplexField(), x), isolate_real=true)
   return real.(filter(isreal, rt))
 end
